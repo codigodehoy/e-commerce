@@ -1,27 +1,24 @@
-import { AiFillStar } from 'react-icons/ai'
-import { AiOutlineStar } from 'react-icons/ai'
-import './Rating.css'
+import { AiFillStar } from "react-icons/ai";
+import { AiOutlineStar } from "react-icons/ai";
 
-function Rating ( {stars} ) {
-    const fillStars = () => {
-        const etiquetas = [];
-        const starSelected = [...Array(stars)].map((_, index) => (
-            <AiFillStar className='StarFilled' key={index}/>
-        ))
-        const starNotSelected = [...Array(5-stars)].map((_, index) => (
-            <AiOutlineStar className='StarNotFilled' key={index}/>
-        ))
-        etiquetas.push(starSelected)
-        etiquetas.push(starNotSelected)
-        return etiquetas
-    }
+import "./Rating.css";
 
-    return (
-        <div className='RatingContainer'>
-            {fillStars()}
-            <h3>& up</h3>
-        </div>
-    )
+function Rating({ rate }) {
+  const productStars = Math.round(rate);
+  const maxStars = Array.from({ length: 5 }, (_, idx) => idx + 1);
+
+  return (
+    <div className="RatingContainer">
+      {maxStars.map((starIndex, index) =>
+        productStars >= starIndex ? (
+            <AiFillStar data-testid="graphicsFilled" className="StarFilled" key={index} />
+        ) : (
+            <AiOutlineStar data-testid="graphicsNotFilled" className="StarNotFilled" key={index} />
+        )
+      )}
+      <h3>& up</h3>
+    </div>
+  );
 }
 
-export { Rating }
+export { Rating };
