@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useMemo } from "react";
 
 const SearchContext = createContext();
 
@@ -11,12 +11,14 @@ function SearchProvider({ children }) {
   const [titleProduct, setTitleProduct] = useState("");
   const [priceProduct, setPriceProduct] = useState("");
   const [descriptionProduct, setDescriptionProduct] = useState("");
+  const [filter, setFilter] = useState("")
 
   const getData = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
     const data = await response.json();
     return data
   };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,11 +33,25 @@ function SearchProvider({ children }) {
     fetchData();
   }, []);
 
-  const searchedProducts = products.filter((product) => {
+
+  const searchedProducts = useMemo(() => {
+
+  const currentProducts = products.filter((product) => {
     const productName = product.title.toLowerCase();
     const searchText = searchValue.toLowerCase();
     return productName.includes(searchText);
   });
+
+    switch(filter){
+      case "Price_Low":
+        return currentProducts.sort((product1, product2) => product1.price - product2.price)
+      case "Price_High":
+        return currentProducts.sort((product1, product2) => product1.price - product2.price).reverse()
+      default:
+        return currentProducts
+    }
+  }, [products, searchValue, filter])
+
 
   return (
     <SearchContext.Provider
@@ -47,6 +63,7 @@ function SearchProvider({ children }) {
         isOpen,
         setIsOpen,
         imageProduct,
+        setFilter,
         setImageProduct,
         titleProduct,
         setTitleProduct,

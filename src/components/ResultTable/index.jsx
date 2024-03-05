@@ -10,6 +10,7 @@ function ResultTable () {
         isLoading,
         isOpen,
       } = useContext(SearchContext);
+      
     return (
         <div className='ResultContainer'>
             <h2>Results:</h2>
