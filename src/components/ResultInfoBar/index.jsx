@@ -1,5 +1,5 @@
 import { ResultPreview } from './ResultPreview'
-import { SortFilter } from './SortFilter'
+import { SortFilter} from "./SortFilter/SortFilter"
 import './ResultInfoBar.css'
 
 function ResultInfoBar () {
