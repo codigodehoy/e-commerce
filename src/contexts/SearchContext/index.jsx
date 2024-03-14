@@ -13,6 +13,7 @@ function SearchProvider({ children }) {
   const [descriptionProduct, setDescriptionProduct] = useState("");
   const [filterByPrice, setFilterByPrice] = useState("");
   const [filtersByCategory, setFiltersByCategory] = useState([]);
+  const [rating, setRating] = useState(1);
 
   const getData = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -33,21 +34,45 @@ function SearchProvider({ children }) {
     fetchData();
   }, []);
 
-  const filterProductsByPrice = (filter, productsByCategory, currentProducts) => {
+  const filterProductsByPrice = (
+    filter,
+    productsByCategory,
+    productsByRate
+  ) => {
     switch (filter) {
       case "Price_Low":
-        const filterByLowPrice = filtersByCategory.length > 0 ? productsByCategory : currentProducts;
-        return filterByLowPrice.sort((product1, product2) => product1.price - product2.price);
+        const filterByLowPrice =
+          filtersByCategory.length > 0 ? productsByCategory : productsByRate;
+        return filterByLowPrice.sort(
+          (product1, product2) => product1.price - product2.price
+        );
       case "Price_High":
-        const filterByHighPrice = filtersByCategory.length > 0 ? productsByCategory : currentProducts;
+        const filterByHighPrice =
+          filtersByCategory.length > 0 ? productsByCategory : productsByRate;
         return filterByHighPrice
           .sort((product1, product2) => product1.price - product2.price)
           .reverse();
       default:
         return filtersByCategory.length > 0
           ? productsByCategory
-          : currentProducts;
+          : productsByRate;
     }
+  };
+
+  const filterProductsByRate = (currentProducts) => {
+    return currentProducts.filter((products) => {
+      const productRate = Math.round(products.rating.rate);
+      return productRate >= rating;
+    });
+  };
+
+  const filterProductsByCategory = (productsByRate) => {
+    return filtersByCategory.flatMap((category) => {
+      const productsByCategory = productsByRate.filter(
+        (product) => product.category === category
+      );
+      return productsByCategory;
+    });
   };
 
   const searchedProducts = useMemo(() => {
@@ -57,16 +82,16 @@ function SearchProvider({ children }) {
       return productName.includes(searchText);
     });
 
-    const productsByCategory = filtersByCategory.flatMap((category) => {
-      const productsByCategory = currentProducts.filter(
-        (product) => product.category === category
-      );
-      return productsByCategory;
-    });
+    const productsByRate = filterProductsByRate(currentProducts);
 
-    return filterProductsByPrice(filterByPrice, productsByCategory, currentProducts);
+    const productsByCategory = filterProductsByCategory(productsByRate);
 
-  }, [products, searchValue, filterByPrice, filtersByCategory]);
+    return filterProductsByPrice(
+      filterByPrice,
+      productsByCategory,
+      productsByRate
+    );
+  }, [products, searchValue, filterByPrice, filtersByCategory, rating]);
 
   return (
     <SearchContext.Provider
@@ -88,6 +113,8 @@ function SearchProvider({ children }) {
         setDescriptionProduct,
         filtersByCategory,
         setFiltersByCategory,
+        setRating,
+        rating,
       }}
     >
       {children}
