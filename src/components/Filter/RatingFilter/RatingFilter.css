@@ -1,8 +1,15 @@
 .RatingFilterContainer {
-    margin-top: 20px;
-    margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .RatingsContainer {
-    margin: 10px 25px;
+  margin: 10px 25px;
+}
+
+.RatingText {
+  position: relative;
+  bottom: 5px;
+  padding-left: 5px;
+  color: #b9b3b3;
 }
