@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import "./Modal.css";
 import { Rating } from "../Filter/RatingFilter/Rating";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { Button } from "../Button/Button";
 import { SearchContext } from "../../contexts/SearchContext";
+import { Stepper } from "../Stepper/Stepper";
 
 function Modal() {
+  const [countItems, setCountItems] = useState(1);
   const {
     setIsOpen,
     imageProduct,
@@ -18,6 +20,15 @@ function Modal() {
     setIsOpen(false);
   };
 
+  const handleAddItem = () => {
+    setCountItems(countItems + 1);
+  };
+
+  const handleRemoveItem = () => {
+    if (countItems > 1) {
+      setCountItems(countItems - 1);
+    }
+  };
 
   return (
     <div className="ModalContainer">
@@ -36,8 +47,15 @@ function Modal() {
           </div>
           <Rating rate={3} />
           <h6>{descriptionProduct}</h6>
-          <div className="AddProduct">
-            <Button>Add</Button>
+          <div className="FooterDetail">
+            <Stepper
+              onAddItem={handleAddItem}
+              onRemoveItem={handleRemoveItem}
+              numberItems={countItems}
+            />
+            <div className="AddProduct">
+              <Button>Add</Button>
+            </div>
           </div>
         </div>
       </div>

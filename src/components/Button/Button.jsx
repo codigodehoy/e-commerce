@@ -1,10 +1,13 @@
+import "./Button.css";
 
-import "./Button.css"
+function Button({ type = "button", children, onClick, hasIcon = false }) {
+  const buttonType = hasIcon ? "ButtonIcon" : "Button";
 
-function Button ({type="button", children, onClick }) {
   return (
-    <button type={type} onClick={onClick}>{children}</button>
-  )
+    <button type={type} onClick={onClick} className={buttonType}>
+      {children}
+    </button>
+  );
 }
 
-export {Button};
+export { Button };
