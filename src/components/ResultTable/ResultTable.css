@@ -1,32 +1,32 @@
 .ResultContainer {
-    grid-area: results;
+  grid-area: results;
 }
 
 .ResultContainer .CardResultsContainer {
-    display: grid;
-    grid-template-columns: auto auto auto auto;
-    gap: 3%;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+  display: grid;
+  gap: 3%;
+  grid-template-columns: repeat(var(--columns), auto);
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .loader {
-    width: 100px;
-    height: 100px;
-    border: 5px solid #441ddf00;
-    border-bottom-color: #FF3D00;
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-    }
+  width: 100px;
+  height: 100px;
+  border: 5px solid #441ddf00;
+  border-bottom-color: #ff3d00;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
 
-    @keyframes rotation {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-    } 
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

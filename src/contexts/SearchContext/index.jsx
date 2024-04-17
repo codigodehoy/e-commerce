@@ -4,6 +4,7 @@ const SearchContext = createContext();
 
 function SearchProvider({ children }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -14,6 +15,7 @@ function SearchProvider({ children }) {
   const [filterByPrice, setFilterByPrice] = useState("");
   const [filtersByCategory, setFiltersByCategory] = useState([]);
   const [rating, setRating] = useState(1);
+  const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
 
   const getData = async () => {
     const response = await fetch("https://fakestoreapi.com/products");
@@ -102,6 +104,8 @@ function SearchProvider({ children }) {
         isLoading,
         isOpen,
         setIsOpen,
+        isCartOpen,
+        setIsCartOpen,
         imageProduct,
         setFilter: setFilterByPrice,
         setImageProduct,
@@ -115,6 +119,8 @@ function SearchProvider({ children }) {
         setFiltersByCategory,
         setRating,
         rating,
+        setShoppingCartTotal,
+        shoppingCartTotal,
       }}
     >
       {children}

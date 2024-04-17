@@ -1,0 +1,27 @@
+span {
+  width: 100%;
+  border-bottom: 1px solid #8b8b8b;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+.ShoppingCartPrice {
+  font-size: 20px;
+  color: #ff3663;
+}
+
+.ContainerCart {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  border-left: 1px solid #8b8b8b;
+}
+
+.ContainerCart .CartHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

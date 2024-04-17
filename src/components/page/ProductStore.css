@@ -1,0 +1,14 @@
+.ContainerWithCart {
+  display: grid;
+  grid-template-areas: "filter results cart";
+  grid-template-columns: 300px auto 348px;
+  column-gap: 60px;
+  padding: 30px 35px;
+}
+.ContainerWithoutCart {
+  display: grid;
+  grid-template-areas: "filter results";
+  grid-template-columns: 300px auto;
+  column-gap: 60px;
+  padding: 30px 35px;
+}
